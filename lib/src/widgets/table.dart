@@ -42,7 +42,7 @@ class AsyncTableWidget<T> extends StatefulWidget {
   });
 
   ///Requests items at a specific zero-based page index and with a specific limit
-  final Future<AsyncTableItemsResponse<T>> Function(int pageIndex, int limit)
+  final Future<AsyncTableItemsResponse<T>> Function(int offset, int limit)
       requestItems;
 
   ///The columns to display
