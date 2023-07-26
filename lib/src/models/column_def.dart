@@ -9,4 +9,3 @@ class AsyncTableColumnDef<T> {
     required this.cellBuilder,
   });
 }
-
