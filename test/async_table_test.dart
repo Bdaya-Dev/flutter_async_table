@@ -102,7 +102,7 @@ void main() {
     // final rowsPerPageStream = StreamController<int>.broadcast();
     const initialrowsPerPage = 6;
     // rowsPerPageStream.add(initialrowsPerPage);
-    late void Function(int? rowsPerPage) _setRowsPerPage;
+    late void Function(int? rowsPerPage) testSetRowsPerPage;
 
     await tester.pumpWidget(
       MaterialApp(
@@ -111,7 +111,7 @@ void main() {
             child: RowsPerPageWrapper(
               initialRowsPerPage: initialrowsPerPage,
               builder: (context, rowsPerPage, setRowsPerPage) {
-                _setRowsPerPage = setRowsPerPage;
+                testSetRowsPerPage = setRowsPerPage;
                 return AsyncTableWidget<MyModel>(
                   key: k,
                   requestItems: db.getPage,
@@ -143,7 +143,7 @@ void main() {
     await tester.pumpAndSettle();
     final ds = dataSrc!;
     //go to second page
-    _setRowsPerPage(initialrowsPerPage * 2);
+    testSetRowsPerPage(initialrowsPerPage * 2);
     // rowsPerPageStream.add(initialrowsPerPage * 2);
     await tester.pumpAndSettle();
     final allItems = db.items;
