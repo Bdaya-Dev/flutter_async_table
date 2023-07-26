@@ -22,7 +22,8 @@ class AsyncTableWidget<T> extends StatefulWidget {
     ],
     this.sortColumnIndex,
     this.sortAscending = true,
-    this.dataRowMinHeight = kMinInteractiveDimension,
+    this.dataRowMinHeight,
+    this.dataRowMaxHeight,
     this.headingRowHeight = 56.0,
     this.horizontalMargin = 24.0,
     this.columnSpacing = 56.0,
@@ -39,6 +40,7 @@ class AsyncTableWidget<T> extends StatefulWidget {
     this.actions,
     this.header,
     this.canSelect = true,
+    
   });
 
   ///Requests items at a specific zero-based page index and with a specific limit
@@ -106,11 +108,8 @@ class AsyncTableWidget<T> extends StatefulWidget {
   /// See [DataTable.sortAscending].
   final bool sortAscending;
 
-  /// The height of each row (excluding the row that contains column headings).
-  ///
-  /// This value is optional and defaults to kMinInteractiveDimension if not
-  /// specified.
-  final double dataRowMinHeight;
+  final double? dataRowMinHeight;
+  final double? dataRowMaxHeight;
 
   /// The height of the heading row.
   ///
@@ -308,6 +307,7 @@ class AsyncTableWidgetState<T> extends State<AsyncTableWidget<T>> {
         columnSpacing: widget.columnSpacing,
         controller: widget.scrollController,
         dataRowMinHeight: widget.dataRowMinHeight,
+        dataRowMaxHeight: widget.dataRowMaxHeight,
         dragStartBehavior: widget.dragStartBehavior,
         header: widget.header,
         headingRowHeight: widget.headingRowHeight,

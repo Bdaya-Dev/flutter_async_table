@@ -1,3 +1,7 @@
+## 0.0.3
+
+* add `dataRowMinHeight` and `dataRowMaxHeight`
+
 ## 0.0.2
 
 * Rename pageIndex to offset
