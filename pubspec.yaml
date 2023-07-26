@@ -1,0 +1,21 @@
+name: async_table
+description: A PaginatedDataTable alternative with convenience methods for fetching async data.
+version: 0.0.1
+homepage: https://github.com/Bdaya-Dev/flutter_async_table
+repository: https://github.com/Bdaya-Dev/flutter_async_table
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  uuid: ^3.0.7
+
+flutter:
