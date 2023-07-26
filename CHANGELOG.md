@@ -1,3 +1,7 @@
+## 0.0.4
+
+* export `AsyncTableItemsResponse<T>`
+
 ## 0.0.3
 
 * add `dataRowMinHeight` and `dataRowMaxHeight`
