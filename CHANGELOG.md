@@ -1,3 +1,7 @@
+## 0.1.0
+
+* pass the data source in `requestItems`, for cases of adapting to firestore
+
 ## 0.0.4
 
 * export `AsyncTableItemsResponse<T>`

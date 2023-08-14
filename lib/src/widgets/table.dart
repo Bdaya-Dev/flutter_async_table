@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../models/actions_builder_params.dart';
 import '../models/column_def.dart';
+import '../models/request.dart';
 import '../models/response.dart';
 import '../models/table_source.dart';
 
@@ -40,12 +41,12 @@ class AsyncTableWidget<T> extends StatefulWidget {
     this.actions,
     this.header,
     this.canSelect = true,
-    
   });
 
   ///Requests items at a specific zero-based page index and with a specific limit
-  final Future<AsyncTableItemsResponse<T>> Function(int offset, int limit)
-      requestItems;
+  final Future<AsyncTableItemsResponse<T>> Function(
+    AsyncTableItemsRequest<T> request,
+  ) requestItems;
 
   ///The columns to display
   final List<AsyncTableColumnDef<T>> columns;
@@ -236,7 +237,17 @@ class AsyncTableWidgetState<T> extends State<AsyncTableWidget<T>> {
   }
 
   void doRequestOffset(int offset) {
-    widget.requestItems(offset, widget.rowsPerPage).then(
+    final rpp = widget.rowsPerPage;
+    widget
+        .requestItems(
+          AsyncTableItemsRequest(
+            offset: offset,
+            limit: rpp,
+            dataSource: source,
+            previousOffsetItems: source.itemsMap[offset - rpp],
+          ),
+        )
+        .then(
           (resp) => source.provideItems(
             offset: offset,
             items: resp.items,

@@ -56,12 +56,16 @@ void main() {
     final k = GlobalKey<AsyncTableWidgetState<MyModel>>();
     AsyncTableSource<MyModel>? dataSrc;
     const rowsPerPage = 6;
+    final requests = <AsyncTableItemsRequest<MyModel>>[];
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: AsyncTableWidget<MyModel>(
             key: k,
-            requestItems: db.getPage,
+            requestItems: (request) {
+              requests.add(request);
+              return db.getPage(request);
+            },
             rowsPerPage: rowsPerPage,
             availableRowsPerPage: const [rowsPerPage, rowsPerPage * 2],
             columns: [
@@ -80,12 +84,21 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
+
     final ds = dataSrc;
     final tableKey =
         ds!.getTableKey() as GlobalObjectKey<PaginatedDataTableState>;
+    expect(requests.length, 1);
+    expect(requests.first.limit, rowsPerPage);
+    expect(requests.first.offset, 0);
+    expect(requests.first.previousOffsetItems, null);
     //go to second page
     tableKey.currentState!.pageTo(rowsPerPage * 1);
     await tester.pumpAndSettle();
+    expect(requests.length, 2);
+    expect(requests.last.previousOffsetItems, ds.itemsMap[0]);    
+    expect(requests.last.limit, rowsPerPage);
+    expect(requests.last.offset, rowsPerPage);
     final allItems = db.items;
     expect(ds.itemsMap.length, 2);
     expect(ds.itemsMap[0], allItems.skip(0).take(rowsPerPage));

@@ -8,3 +8,4 @@ export 'src/models/actions_builder_params.dart';
 export 'src/models/column_def.dart';
 export 'src/models/table_source.dart';
 export 'src/models/response.dart';
+export 'src/models/request.dart';

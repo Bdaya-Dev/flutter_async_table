@@ -1,6 +1,5 @@
+import 'package:async_table/async_table.dart';
 import 'package:flutter/foundation.dart';
-
-import 'package:async_table/src/models/response.dart';
 
 import '_helpers.dart';
 
@@ -36,12 +35,11 @@ class MyFakeDatabase {
   final items = List.generate(100, (index) => MyModel.rand());
 
   Future<AsyncTableItemsResponse<MyModel>> getPage(
-    int offset,
-    int limit,
+    AsyncTableItemsRequest<MyModel> request
   ) {
     return SynchronousFuture(
       AsyncTableItemsResponse(
-        items: items.skip(offset).take(limit).toList(),
+        items: items.skip(request.offset).take(request.limit).toList(),
         isEstimated: false,
         totalCount: items.length,
       ),

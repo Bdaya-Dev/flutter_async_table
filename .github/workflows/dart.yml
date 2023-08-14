@@ -13,10 +13,10 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2.3.4
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      
+          
       - name: "Analyze"
         run: flutter pub get && flutter analyze .
 
